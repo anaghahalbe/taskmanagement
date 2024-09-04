@@ -1,11 +1,14 @@
 package com.encora.codesynthesis.repository;
 
-import com.encora.codesynthesis.model.ERole;
-import com.encora.codesynthesis.model.Role;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.encora.codesynthesis.models.ERole;
+import com.encora.codesynthesis.models.Role;
 
 import java.util.Optional;
 
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository extends MongoRepository<Role, Integer> {
+    
     Optional<Role> findByName(ERole name);
 }
+

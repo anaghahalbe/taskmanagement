@@ -1,8 +1,9 @@
 package com.encora.codesynthesis.service.impl;
 
-import com.encora.codesynthesis.model.User;
+import com.encora.codesynthesis.models.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import java.util.Objects;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,7 @@ public class UserDetailsImpl implements UserDetails{
 
     private static final long serialVersionUID = 1L;
 
-    private int id;
+    private String id;
 
     private String username;
 
@@ -26,7 +27,7 @@ public class UserDetailsImpl implements UserDetails{
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(int id, String email, String password, String username,
+    public UserDetailsImpl(String id, String email, String password, String username,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
@@ -50,6 +51,13 @@ public class UserDetailsImpl implements UserDetails{
 
     }
 
+public String getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -58,12 +66,12 @@ public class UserDetailsImpl implements UserDetails{
 
     @Override
     public String getPassword() {
-        return "";
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return username;
     }
 
 
@@ -86,4 +94,14 @@ public class UserDetailsImpl implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+
+    @Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		UserDetailsImpl user = (UserDetailsImpl) o;
+		return Objects.equals(id, user.id);
+	}
 }

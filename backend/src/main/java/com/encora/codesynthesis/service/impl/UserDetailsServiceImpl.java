@@ -1,6 +1,6 @@
 package com.encora.codesynthesis.service.impl;
 
-import com.encora.codesynthesis.model.User;
+import com.encora.codesynthesis.models.*;
 import com.encora.codesynthesis.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
