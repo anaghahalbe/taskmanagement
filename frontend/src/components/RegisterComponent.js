@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link} from 'react-router-dom';
 import AuthService from '../services/AuthService'; // Adjust the path as needed
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -55,11 +55,11 @@ const [redirectToLogin, setRedirectToLogin] = useState(false);
 
 
   return (
-    <div className="container mt-5">
+    <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-6">
 
-          <div className="card">
+          <div className="card-container">
             <div className="card-header">Register</div>
             <div className="card-body">
               {message && (
@@ -138,6 +138,7 @@ const [redirectToLogin, setRedirectToLogin] = useState(false);
                 <button type="submit" className="btn btn-primary">
                   Register
                 </button>
+                <Link to="/" className="btn btn-link">Login</Link>
               </form>
             </div>
           </div>
