@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# Task Management Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This is a full-stack task management application built with React for the frontend and Spring Boot for the backend. It allows users to register, log in, create tasks, set due dates, mark tasks as complete, and manage their task list.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **User Registration and Login:** Secure user authentication with JWT (JSON Web Tokens).
+- **Task Creation:** Users can create tasks with a name, description, due date, and completion date.
+- **Task Listing:** View a list of all created tasks with their details.
+- **Task Editing:** Update task information, including name, description, due dates, and completion status.
+- **Task Deletion:** Remove tasks from the list.
+- **Task Completion:** Mark tasks as completed.
+- **User-Specific Tasks:** Each user can only view and manage their own tasks.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Frontend:**
 
-### `npm test`
+- React
+- React Router
+- Axios (for HTTP requests)
+- Bootstrap (for styling)
+- React DatePicker
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Backend:**
 
-### `npm run build`
+- Spring Boot
+- Spring Security (for authentication and authorization)
+- Spring Data JPA (for database interaction)
+- MongoDB (for data storage)
+- JWT (JSON Web Token) for authentication
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Frontend (`frontend` directory):**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `src/components`: Contains React components for login, registration, dashboard, and other UI elements.
+- `src/services`: Contains services for handling API requests (e.g., `AuthService`, `TaskService`).
+- `public`: Contains static assets like `index.html`.
 
-### `npm run eject`
+**Backend (`backend` directory):**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `src/main/java`: Contains Spring Boot application code, including controllers, services, and repositories.
+- `src/main/resources`: Contains configuration files (e.g., `application.properties`).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Getting Started
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Prerequisites:**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Java Development Kit (JDK) 8 or higher
+- Node.js and npm (or yarn)
+- Maven (for building the backend)
 
-## Learn More
+**Backend Setup:**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Navigate to the `backend` directory.
+2. Build the project using Maven: `mvn clean install`
+3. Run the Spring Boot application: `mvn spring-boot:run`
+   - The backend will start on port 8080 by default.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Frontend Setup:**
 
-### Code Splitting
+1. Navigate to the `frontend` directory.
+2. Install dependencies: `npm install`
+3. Start the development server: `npm start`
+   - The frontend will start on port 8081 by default.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Accessing the Application:**
 
-### Analyzing the Bundle Size
+- Open your web browser and go to `http://localhost:8081`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## API Documentation
 
-### Making a Progressive Web App
+(Provide details about your backend API endpoints, request/response formats, and authentication requirements.)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Contributing
 
-### Advanced Configuration
+(If you want to encourage contributions, provide guidelines on how to contribute to the project.)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## License
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+(Specify the license under which your project is distributed.)

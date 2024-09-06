@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import AuthService from '../services/AuthService'; // Adjust the path as needed
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const LoginComponent = () => {
   const [username, setUsername] = useState('');
@@ -16,7 +16,8 @@ const LoginComponent = () => {
       const response = await AuthService.login({ username, password }); // Assuming AuthService.login exists
 
       if (response.data.accessToken) { // Adjust based on your backend response
-        localStorage.setItem('user', JSON.stringify(response.data)); // Store user data in local storage
+        localStorage.setItem('user', JSON.stringify(`${response.data.tokenType} ${response.data.accessToken}`)); 
+       // Store user data in local storage
         navigate('/dashboard'); // Redirect to a protected route
       } else {
         setMessage(response.data.message || 'Login failed'); // Display error message
@@ -28,11 +29,11 @@ const LoginComponent = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-header">Login</div>
+    <div className="container">
+      <h2>Login</h2>
+      <div>
+        <div>
+          <div>
             <div className="card-body">
               {message && <div className="alert alert-danger">{message}</div>}
               <form onSubmit={handleLogin}>

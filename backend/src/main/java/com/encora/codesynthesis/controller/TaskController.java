@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.encora.codesynthesis.models.Task;
 import com.encora.codesynthesis.repository.UserRepository;
 import com.encora.codesynthesis.service.impl.TaskService;
+import com.encora.codesynthesis.service.impl.UserDetailsImpl;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
@@ -38,20 +41,22 @@ public class TaskController {
      @PostMapping
      @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
-        if(userRepository.existsById(Integer.parseInt(task.getUserId()))){
-            Task createdTask = taskService.createTask(task);
-            return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-       
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getPrincipal() instanceof UserDetailsImpl ?
+                       ((UserDetailsImpl) authentication.getPrincipal()).getId().toString() :
+                       authentication.getPrincipal().toString();
+        task.setUserId(userId);
+        Task createdTask = taskService.createTask(task);
+        return new ResponseEntity<>(createdTask, HttpStatus.CREATED);  
     }
     
     @GetMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<Task>> getAllTasks() {
          Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    String userId = authentication.getName(); // Assuming your Authentication object stores userId in the principal
+     String userId = authentication.getPrincipal() instanceof UserDetailsImpl ?
+                    ((UserDetailsImpl) authentication.getPrincipal()).getId().toString() :
+                    authentication.getPrincipal().toString();               
         List<Task> tasks = taskService.getAllTasks(userId) ;
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
@@ -61,7 +66,9 @@ public class TaskController {
     public ResponseEntity<Task> getTaskById(@PathVariable String id) {
         Task task = taskService.getTaskById(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId = authentication.getName();
+        String userId = authentication.getPrincipal() instanceof UserDetailsImpl ?
+        ((UserDetailsImpl) authentication.getPrincipal()).getId().toString() :
+        authentication.getPrincipal().toString(); 
         if((task!=null) && (task.getUserId().equals(userId)))
         {
             return new ResponseEntity<>(task, HttpStatus.OK);
@@ -76,7 +83,9 @@ public class TaskController {
         Task task = taskService.updateTask(id, updatedTask);
         
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId = authentication.getName();
+        String userId = authentication.getPrincipal() instanceof UserDetailsImpl ?
+        ((UserDetailsImpl) authentication.getPrincipal()).getId().toString() :
+        authentication.getPrincipal().toString(); 
         if ((task != null) && (task.getUserId().equals(userId))) {
             return new ResponseEntity<>(task, HttpStatus.OK);
         } else {
@@ -89,7 +98,9 @@ public class TaskController {
     public ResponseEntity<Void> deleteTask(@PathVariable String id) {
         Task task = taskService.getTaskById(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId = authentication.getName();
+        String userId = authentication.getPrincipal() instanceof UserDetailsImpl ?
+        ((UserDetailsImpl) authentication.getPrincipal()).getId().toString() :
+        authentication.getPrincipal().toString(); 
        boolean deleted = false;
        if (task.getUserId().equals(userId)){
         deleted = taskService.deleteTask(id);
